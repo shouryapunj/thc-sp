@@ -11,7 +11,7 @@ node {
 			sh "docker-compose up --build -d"
 		
 		} catch (e) {
-			error "Service update failed
+			error "Service update failed"
 		}
 	
 	}
