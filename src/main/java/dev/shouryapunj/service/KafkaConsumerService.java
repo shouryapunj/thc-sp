@@ -2,8 +2,6 @@ package dev.shouryapunj.service;
 
 import dev.shouryapunj.dto.OrderCartDTO;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 @Service

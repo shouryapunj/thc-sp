@@ -26,6 +26,7 @@ public class ApiStatsService {
     }
 
     public void saveApiStatistics(String name, RequestMethod method, long executionTime) {
+        logger.info("Saving api statistics for : " + name);
         ApiStats apiStats = new ApiStats(
                 name,
                 method,
@@ -34,6 +35,7 @@ public class ApiStatsService {
                 ZonedDateTime.now()
         );
         apiStatsRepository.save(apiStats);
+        logger.info("Saved api statistics for : " + name);
     }
 
 
@@ -44,7 +46,6 @@ public class ApiStatsService {
                 .forEach(apiStats -> {
                     apiStatsList.get().add(apiStats);
                 });
-
         return apiStatsList.get().size() == 0 ? Optional.empty() : apiStatsList;
     }
 }

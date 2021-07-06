@@ -86,7 +86,7 @@ public class OrderCartService {
             }
 
             totalPrice += menu.get().getUnitPrice() * Double.valueOf(itemDTO.getQuantity());
-            Item item = new Item(menu.get(), itemDTO.getQuantity(), orderCart.getOrderId());
+            Item item = new Item(menu.get(), itemDTO.getQuantity(), orderCart.getOrderId(), ZonedDateTime.now(), ZonedDateTime.now());
             itemRepository.save(item);
             itemList.add(item);
             orderCart.setLocationId(location.get().getLocationId());
@@ -115,6 +115,9 @@ public class OrderCartService {
 
     public Optional<OrderCart> getOrderById(String orderId) {
         Optional<OrderCart> orderCart = orderCartRepository.findById(orderId);
+        if (orderCart.isEmpty()) {
+            return Optional.empty();
+        }
         List<Item> itemList = itemRepository.findItemByOrderId(orderId);
         orderCart.get().setItems(itemList);
         return orderCart;

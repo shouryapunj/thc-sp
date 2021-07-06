@@ -43,10 +43,6 @@ public class Location {
     @Column(name = "ModifiedOn" ,nullable = false)
     private ZonedDateTime modifiedOn;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ReservationId")
-//    private List<Reservations> reservations;
-
     public Location(String address, String zip, String city, String state, String country, ZonedDateTime createdOn, ZonedDateTime modifiedOn) {
         this.locationId = UUID.randomUUID().toString();
         this.address = address;

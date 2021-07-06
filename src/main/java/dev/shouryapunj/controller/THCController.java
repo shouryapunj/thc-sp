@@ -1,7 +1,6 @@
 package dev.shouryapunj.controller;
 
 import dev.shouryapunj.entity.ApiStats;
-import dev.shouryapunj.entity.Menu;
 import dev.shouryapunj.service.ApiStatsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

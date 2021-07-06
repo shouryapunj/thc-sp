@@ -73,10 +73,12 @@ public class LocationController {
         Optional<List<Location>> locationList = locationService.findLocationByKeyword(keyword);
         if (locationList.isEmpty()) {
             logger.info("Found {" + keyword + "} in 0 Locations");
+            apiStatsService.saveApiStatistics("/api/locations/find/{keyword}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with \"" + keyword + "\" keyword in it!");
         }
         long end = System.currentTimeMillis();
         logger.info("Found {" + keyword + "} in " + locationList.get().size() + " Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/{keyword}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(locationList.get());
     }
 
@@ -87,10 +89,12 @@ public class LocationController {
         Optional<Location> location = locationService.findLocationById(id);
         if (location.isEmpty()) {
             logger.info("Found {" + id + "} in 0 Locations");
+            apiStatsService.saveApiStatistics("/api/locations/find/id/{id}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with ID : \"" + id + "\"");
         }
         long end = System.currentTimeMillis();
         logger.info("Found ID : {" + id + "} in 1 Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/id/{id}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(location.get());
     }
 
@@ -101,10 +105,12 @@ public class LocationController {
         Optional<List<Location>> locationList = locationService.findLocationByAddress(address);
         if (locationList.isEmpty()) {
             logger.info("Found {" + address + "} in 0 Locations");
+            apiStatsService.saveApiStatistics("/api/locations/find/address/{address}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with ADDRESS : \"" + address + "\"");
         }
         long end = System.currentTimeMillis();
         logger.info("Found ADDRESS : {" + address + "} in " + locationList.get().size() + " Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/address/{address}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(locationList.get());
     }
 
@@ -115,10 +121,12 @@ public class LocationController {
         Optional<List<Location>> locationList = locationService.findLocationByCity(city);
         if (locationList.isEmpty()) {
             logger.info("Found {" + city + "} in 0 Locations ");
+            apiStatsService.saveApiStatistics("/api/locations/find/city/{city}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with CITY : \"" + city + "\"");
         }
         long end = System.currentTimeMillis();
         logger.info("Found CITY : {" + city + "} in " + locationList.get().size() + " Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/city/{city}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(locationList.get());
     }
 
@@ -129,10 +137,12 @@ public class LocationController {
         Optional<List<Location>> locationList = locationService.findLocationByZip(zip);
         if (locationList.isEmpty()) {
             logger.info("Found {" + zip + "} in 0 locations");
+            apiStatsService.saveApiStatistics("/api/locations/find/zip/{zip}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with ZIP : \"" + zip + "\"");
         }
         long end = System.currentTimeMillis();
         logger.info("Found ZIP : {" + zip + "} IN " + locationList.get().size() + " Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/zip/{zip}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(locationList.get());
     }
 
@@ -143,10 +153,12 @@ public class LocationController {
         Optional<List<Location>> locationList = locationService.findLocationByState(state);
         if (locationList.isEmpty()) {
             logger.info("Found {" + state + "} in 0 Locations");
+            apiStatsService.saveApiStatistics("/api/locations/find/state/{state}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with STATE : \"" + state + "\"");
         }
         long end = System.currentTimeMillis();
         logger.info("Found STATE : {" + state + "} in " + locationList.get().size() + " Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/state/{state}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(locationList.get());
     }
 
@@ -157,10 +169,12 @@ public class LocationController {
         Optional<List<Location>> locationList = locationService.findLocationByState(country);
         if (locationList.isEmpty()) {
             logger.info("Found {" + country + "} in 0 Locations");
+            apiStatsService.saveApiStatistics("/api/locations/find/country/{country}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Location found with COUNTRY : \"" + country + "\"");
         }
         long end = System.currentTimeMillis();
         logger.info("Found COUNTRY : {" + country + "} in " + locationList.get().size() + " Locations in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/find/country/{country}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(locationList.get());
     }
 
@@ -171,10 +185,12 @@ public class LocationController {
         Optional<Location> updatedLocation = locationService.updateLocation(id, location);
         if (updatedLocation.isEmpty()) {
             logger.info("Update failed, No location was found with id " + id);
+            apiStatsService.saveApiStatistics("/api/locations/find/update/{id}", RequestMethod.PUT, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No location with ID : \""+ id + "\" found for update!");
         }
         long end = System.currentTimeMillis();
         logger.info("Updated location " + updatedLocation.get() + " in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/update/{id}", RequestMethod.PUT, end-start);
         return ResponseEntity.ok(updatedLocation.get());
     }
 
@@ -185,10 +201,12 @@ public class LocationController {
         Optional<Location> deletedLocation = locationService.deleteLocation(id);
         if (deletedLocation.isEmpty()) {
             logger.info("Delete failed, No location was found with id " + id);
+            apiStatsService.saveApiStatistics("/api/locations/delete/{id}", RequestMethod.DELETE, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No location with ID : \""+ id + "\" found for delete!");
         }
         long end = System.currentTimeMillis();
         logger.info("Deleted Location " + deletedLocation.get() + " in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/locations/delete/{id}", RequestMethod.DELETE, end-start);
         return ResponseEntity.ok(deletedLocation.get());
     }
 }

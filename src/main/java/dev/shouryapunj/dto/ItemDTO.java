@@ -1,8 +1,9 @@
 package dev.shouryapunj.dto;
 
-import dev.shouryapunj.entity.Menu;
 import lombok.*;
 import org.springframework.stereotype.Component;
+
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -20,9 +21,15 @@ public class ItemDTO {
 
     private String locationId;
 
-    public ItemDTO(String menuId, String quantity, String locationId) {
+    private ZonedDateTime createdOn;
+
+    private ZonedDateTime modifiedOn;
+
+    public ItemDTO(String menuId, String quantity, String locationId, ZonedDateTime createdOn, ZonedDateTime modifiedOn) {
         this.menuId = menuId;
         this.quantity = quantity;
         this.locationId = locationId;
+        this.createdOn = createdOn;
+        this.modifiedOn = modifiedOn;
     }
 }

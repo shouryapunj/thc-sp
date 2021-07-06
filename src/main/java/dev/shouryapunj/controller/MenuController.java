@@ -2,6 +2,7 @@ package dev.shouryapunj.controller;
 
 import dev.shouryapunj.dto.MenuDTO;
 import dev.shouryapunj.entity.Menu;
+import dev.shouryapunj.service.ApiStatsService;
 import dev.shouryapunj.service.MenuService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +20,11 @@ public class MenuController {
 
     private final MenuService menuService;
 
-    public MenuController(MenuService menuService) {
+    private final ApiStatsService apiStatsService;
+
+    public MenuController(MenuService menuService, ApiStatsService apiStatsService) {
         this.menuService = menuService;
+        this.apiStatsService = apiStatsService;
     }
 
     /**
@@ -33,11 +37,13 @@ public class MenuController {
         Optional<List<Menu>> menuList = menuService.getMenu();
         if (menuList.isEmpty()) {
             logger.info("Fetched 0 Menu!");
+            apiStatsService.saveApiStatistics("/api/menu/get", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.noContent().build();
             //"No data present for Menu!"
         }
         long end = System.currentTimeMillis();
         logger.info("Fetched " + menuList.get().size() + " Menu Items in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/menu/get", RequestMethod.GET, end-start);
         return ResponseEntity.ok(menuList.get());
     }
 
@@ -51,10 +57,12 @@ public class MenuController {
         Optional<Menu> menuItem = menuService.addNewMenuItem(menuDTO);
         if (menuItem.isEmpty()) {
             logger.info("Menu Item already exists!");
+            apiStatsService.saveApiStatistics("/api/menu/add", RequestMethod.POST, System.currentTimeMillis()-start);
             return ResponseEntity.ok("Menu Item already exists, please use update api to make changes!");
         }
         long end = System.currentTimeMillis();
         logger.info("Added new Menu Item " + menuItem.get() + " in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/menu/add", RequestMethod.POST, end-start);
         return ResponseEntity.ok(menuItem.get());
     }
 
@@ -68,10 +76,12 @@ public class MenuController {
         Optional<Menu> menuItem = menuService.findMenuByName(name);
         if (menuItem.isEmpty()) {
             logger.info("No Menu Item found with name : {" + name + "}");
+            apiStatsService.saveApiStatistics("/api/menu/find/{name}", RequestMethod.GET, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Menu Item found with name : {" + name + "}");
         }
         long end = System.currentTimeMillis();
         logger.info("Found {" + name + "} in 1 Menu in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/menu/find/{name}", RequestMethod.GET, end-start);
         return ResponseEntity.ok(menuItem.get());
     }
 
@@ -82,10 +92,12 @@ public class MenuController {
         Optional<Menu> updatedMenu = menuService.updateMenu(id, menuDTO);
         if (updatedMenu.isEmpty()) {
             logger.info("Update failed, No Menu was found with id " + id);
+            apiStatsService.saveApiStatistics("/api/menu/update/{id}", RequestMethod.PUT, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Menu with ID : \""+ id + "\" found for update!");
         }
         long end = System.currentTimeMillis();
         logger.info("Updated Menu " + updatedMenu.get() + " in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/menu/update/{id}", RequestMethod.PUT, end-start);
         return ResponseEntity.ok(updatedMenu.get());
     }
 
@@ -96,10 +108,12 @@ public class MenuController {
         Optional<Menu> deletedMenu = menuService.deleteMenu(id);
         if (deletedMenu.isEmpty()) {
             logger.info("Delete failed, No Menu Item was found with id " + id);
+            apiStatsService.saveApiStatistics("/api/menu/delete/{id}", RequestMethod.DELETE, System.currentTimeMillis()-start);
             return ResponseEntity.ok("No Menu with ID : \""+ id + "\" found for delete!");
         }
         long end = System.currentTimeMillis();
         logger.info("Deleted Menu " + deletedMenu.get() + " in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/menu/delete/{id}", RequestMethod.DELETE, end-start);
         return ResponseEntity.ok(deletedMenu.get());
     }
 
