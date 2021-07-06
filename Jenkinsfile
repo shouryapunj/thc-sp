@@ -1,6 +1,6 @@
 node {
 	
-	dir('C:\Egen\THC\') {
+	dir("C:\\Egen\\THC\\") {
 		
 		stage("clean workspace") {
 			deleteDir()
