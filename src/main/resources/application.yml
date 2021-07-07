@@ -11,11 +11,13 @@ spring:
 
   datasource:
 #    url: jdbc:postgresql://localhost:5432/postgres
-    url: ${SPRING_DATASOURCE_URL}
 #    username: postgres
-    username: ${SPRING_DATASOURCE_USERNAME}
 #    password: root
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
+
+
     initialization-mode: always
 
   jpa:

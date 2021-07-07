@@ -1,5 +1,2 @@
 .idea
-target/
-Dockerfile
-docker-compose.yml
 out/

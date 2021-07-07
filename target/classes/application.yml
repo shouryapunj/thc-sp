@@ -1,0 +1,76 @@
+server:
+  servlet:
+    context-path: /api
+
+spring:
+  profiles:
+    active: local
+
+  application:
+    name: TexasHamburgerCompany
+
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: postgres
+#    password: root
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+
+    initialization-mode: always
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl: true
+#      ddl-auto: validate
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+#        default_schema: thc
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  security:
+    user:
+      name: admin
+      password: admin
+
+  kafka:
+    producer:
+#      bootstrap-servers: localhost:9092
+      bootstrap-servers: host.docker.internal:19092
+#      bootstrap-servers: ${KAFKA_PRODUCER_BOOTSTRAP_SERVERS}
+      client-id: OrderClient
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      linger-ms: 1
+      enable-Idempotence: true
+      transactionalId: OrderTransId
+    consumer:
+#      bootstrap-servers: localhost:9092
+      bootstrap-servers: host.docker.internal:19092
+#      bootstrap-servers: ${KAFKA_CONSUMER_BOOTSTRAP_SERVERS}
+      client-id: OrderClient
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      isolation-level: read_committed
+      max-poll-records: 10
+      heartbeat-interval: 6000
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: dev.shouryapunj.entity.OrderCartDTO
+
+kafka:
+  topic:
+    name: THCOrders
+    groupId: THCGroup
