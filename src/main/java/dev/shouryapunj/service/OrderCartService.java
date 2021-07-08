@@ -128,7 +128,7 @@ public class OrderCartService {
     public void consumeOrder(OrderCartDTO orderCart) {
         logger.info("Consuming Order from Kafka");
         orderCart.setOrderStatus(OrderStatus.COMPLETED);
-        orderCartRepository.updateOrderById(orderCart.getOrderId(), orderCart.getOrderStatus(), ZonedDateTime.now());
+        orderCartRepository.updateOrderById(orderCart.getOrderId(), orderCart.getOrderStatus().ordinal(), ZonedDateTime.now());
         logger.info("Order completed : " + orderCart.getOrderId());
     }
 

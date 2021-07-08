@@ -19,6 +19,6 @@ public interface OrderCartRepository extends PagingAndSortingRepository<OrderCar
                     "WHERE O.ORDER_ID = :orderId",
             nativeQuery = true
     )
-    void updateOrderById(@Param("orderId") String orderId, @Param("orderStatus") OrderStatus orderStatus, @Param("modifiedOn") ZonedDateTime modifiedOn);
+    void updateOrderById(@Param("orderId") String orderId, @Param("orderStatus") int orderStatus, @Param("modifiedOn") ZonedDateTime modifiedOn);
 
 }
