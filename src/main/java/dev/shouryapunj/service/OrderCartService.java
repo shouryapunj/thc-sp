@@ -13,7 +13,8 @@ import dev.shouryapunj.repository.MenuRepository;
 import dev.shouryapunj.repository.OrderCartRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.criterion.Order;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -129,5 +130,15 @@ public class OrderCartService {
         orderCart.setOrderStatus(OrderStatus.COMPLETED);
         orderCartRepository.updateOrderById(orderCart.getOrderId(), OrderStatus.COMPLETED.toString(), ZonedDateTime.now());
         logger.info("Order completed : " + orderCart.getOrderId());
+    }
+
+    public Optional<List<OrderCart>> getOrdersByPageAndSortBy(int from , int to, String sortBy) {
+        Optional<List<OrderCart>> orderCartList = Optional.of(orderCartRepository.findAll(PageRequest.of(from, to, Sort.by(sortBy))).toList());
+
+        if (orderCartList.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return orderCartList;
     }
 }

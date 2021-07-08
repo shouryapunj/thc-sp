@@ -6,6 +6,7 @@ import dev.shouryapunj.repository.OpenHoursReposiotry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class OpenHoursService {
         return openHoursList.get().size() == 0 ? Optional.empty() : openHoursList;
     }
 
+    @Transactional
     public Optional<OpenHours> addOpenHours(OpenHoursDTO openHoursDTO) {
         logger.info("OpenHoursService : Adding new open hours");
         Optional<OpenHours> existingOpenHours = Optional.ofNullable(openHoursReposiotry.findByDateOfOperation(openHoursDTO.getDateOfOperation()));
@@ -59,6 +61,7 @@ public class OpenHoursService {
         return Optional.ofNullable(openHoursReposiotry.findByDateOfOperation(dateOfOperation));
     }
 
+    @Transactional
     public Optional<OpenHours> updateOpenHours(String id, OpenHoursDTO openHoursDTO) {
         logger.info("OpenHoursService : Updating open hours");
         Optional<OpenHours> updatedOpenHours = Optional.empty();
@@ -82,6 +85,7 @@ public class OpenHoursService {
         return openHoursReposiotry.findById(id);
     }
 
+    @Transactional
     public Optional<OpenHours> deleteOpenHours(String id) {
         logger.info("OpenHoursService : Deleting open hours" );
         Optional<OpenHours> deletedOpenHours = Optional.empty();

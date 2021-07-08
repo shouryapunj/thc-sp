@@ -3,10 +3,7 @@ package dev.shouryapunj.entity;
 import lombok.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -25,6 +22,7 @@ public class ApiStats {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "method", nullable = false)
     private RequestMethod method;
 

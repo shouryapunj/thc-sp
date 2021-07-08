@@ -76,4 +76,20 @@ public class OrderCartController {
         return ResponseEntity.ok(order.get());
     }
 
+    @RequestMapping(value = "/get/{from}/{to}/{sortBy}", method = RequestMethod.GET)
+    public ResponseEntity getOrderById(@PathVariable("from") String from, @PathVariable("id") String to, @PathVariable("sortBy") String sortBy) {
+        long start = System.currentTimeMillis();
+        logger.info("Fetching Order");
+        Optional<List<OrderCart>> order = orderCartService.getOrdersByPageAndSortBy(Integer.parseInt(from), Integer.parseInt(to), sortBy);
+        if (order.isEmpty()) {
+            logger.info("Fetched 0 Orders!");
+            apiStatsService.saveApiStatistics("/api/ordercart/get/{from}/{to}/{sortBy}", RequestMethod.GET, System.currentTimeMillis()-start);
+            return ResponseEntity.ok("No data present for Order");
+        }
+        long end = System.currentTimeMillis();
+        logger.info("Fetched 1 Order in " + (end-start) + "ms");
+        apiStatsService.saveApiStatistics("/api/ordercart/get/{from}/{to}/{sortBy}", RequestMethod.GET, end-start);
+        return ResponseEntity.ok(order.get());
+    }
+
 }

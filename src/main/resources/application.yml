@@ -52,8 +52,8 @@ spring:
       enable-Idempotence: true
       transactionalId: OrderTransId
     consumer:
-#      bootstrap-servers: localhost:9092
-      bootstrap-servers: host.docker.internal:19092
+      bootstrap-servers: localhost:9092
+#      bootstrap-servers: host.docker.internal:19092
 #      bootstrap-servers: ${KAFKA_CONSUMER_BOOTSTRAP_SERVERS}
       client-id: OrderClient
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

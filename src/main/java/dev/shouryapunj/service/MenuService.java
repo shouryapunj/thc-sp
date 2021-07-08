@@ -7,6 +7,7 @@ import dev.shouryapunj.repository.MenuRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class MenuService {
         return menuList.get().size() == 0 ? Optional.empty() : menuList;
     }
 
-
+    @Transactional
     public Optional<Menu> addNewMenuItem(MenuDTO menuDTO) {
         logger.info("MenuService : Adding new menu item");
         Optional<Menu> existingMenu = Optional.ofNullable(menuRepository.findByName(menuDTO.getName()));
@@ -63,6 +64,7 @@ public class MenuService {
         return Optional.ofNullable(menuRepository.findByName(name));
     }
 
+    @Transactional
     public Optional<Menu> updateMenu(String id, MenuDTO menuDTO) {
         logger.info("MenuService : Updating menu item");
         Optional<Menu> updatedMenu = Optional.empty();
@@ -78,6 +80,7 @@ public class MenuService {
         return updatedMenu;
     }
 
+    @Transactional
     public Optional<Menu> deleteMenu(String id) {
         logger.info("MenuService : Deleting menu item" );
         Optional<Menu> deletedMenu = Optional.empty();

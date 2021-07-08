@@ -6,6 +6,7 @@ import dev.shouryapunj.repository.LocationRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class LocationService {
         return locationList.get().size() == 0 ? Optional.empty() : locationList;
     }
 
+    @Transactional
     public Optional<Location> addNewLocation(LocationDTO locationDto) {
         Optional<Location> existingLocation = Optional.ofNullable(locationRepository
                 .findLocation(locationDto.getAddress(),
@@ -133,6 +135,7 @@ public class LocationService {
         return locationListByCountry.get().size() == 0 ? Optional.empty() : locationListByCountry;
     }
 
+    @Transactional
     public Optional<Location> updateLocation(String id, Location location) {
         Optional<Location> updatedLocation = Optional.empty();
         if (findLocationById(id).isPresent()) {
@@ -150,6 +153,7 @@ public class LocationService {
         return updatedLocation;
     }
 
+    @Transactional
     public Optional<Location> deleteLocation(String id) {
         Optional<Location> deletedLocation = Optional.empty();
         if (findLocationById(id).isPresent()) {

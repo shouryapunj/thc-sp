@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.ZonedDateTime;
@@ -25,6 +26,7 @@ public class ApiStatsService {
         this.apiStatsRepository = apiStatsRepository;
     }
 
+    @Transactional
     public void saveApiStatistics(String name, RequestMethod method, long executionTime) {
         logger.info("Saving api statistics for : " + name);
         ApiStats apiStats = new ApiStats(
@@ -38,7 +40,7 @@ public class ApiStatsService {
         logger.info("Saved api statistics for : " + name);
     }
 
-
+    @Transactional
     public Optional<List<ApiStats>> getStats() {
         Optional<List<ApiStats>> apiStatsList = Optional.of(new ArrayList<>());
         apiStatsRepository

@@ -5,6 +5,7 @@ node {
 	
 		stage("Run Container on Server") {
 			try {
+			    bat "mvn clean package"
 				bat "docker-compose down"
 				bat "docker-compose up --build -d"
 		

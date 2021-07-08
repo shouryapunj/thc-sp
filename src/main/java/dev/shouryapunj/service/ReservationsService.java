@@ -8,6 +8,7 @@ import dev.shouryapunj.repository.ReservationsRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class ReservationsService {
         return reservationsList.get().size() == 0 ? Optional.empty() : reservationsList;
     }
 
+    @Transactional
     public Optional<Reservations> addReservation(ReservationsDTO reservationsDTO) {
         logger.info("ReservationsService : Adding new reservation");
         Optional<Reservations> existingReservation = Optional.ofNullable(reservationsRepository.findByEmail(reservationsDTO.getEmail()));
@@ -76,6 +78,7 @@ public class ReservationsService {
         return Optional.ofNullable(reservationsRepository.findByEmail(email));
     }
 
+    @Transactional
     public Optional<Reservations> updateReservation(String id, ReservationsDTO reservationsDTO) {
         logger.info("ReservationService : Updating reservation");
         Optional<Reservations> updatedReservation = Optional.empty();
@@ -101,6 +104,7 @@ public class ReservationsService {
         return reservationsRepository.findById(id);
     }
 
+    @Transactional
     public Optional<Reservations> deleteReservation(String id) {
         logger.info("ReservationService : Deleting reservation" );
         Optional<Reservations> deletedReservation = Optional.empty();
