@@ -10,12 +10,12 @@ spring:
     name: TexasHamburgerCompany
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: root
-#    url: ${SPRING_DATASOURCE_URL}
-#    username: ${SPRING_DATASOURCE_USERNAME}
-#    password: ${SPRING_DATASOURCE_PASSWORD}
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: postgres
+#    password: root
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     initialization-mode: always
 
   jpa:
@@ -38,8 +38,8 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
-#      bootstrap-servers: host.docker.internal:19092
+#      bootstrap-servers: localhost:9092
+      bootstrap-servers: host.docker.internal:19092
 #      bootstrap-servers: ${KAFKA_PRODUCER_BOOTSTRAP_SERVERS}
       client-id: OrderClient
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

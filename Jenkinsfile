@@ -1,7 +1,7 @@
 node {
 	
 	dir("C:\\Egen\\THC\\") {
-	    
+
 	    stage("Packaging application") {
 	        try {
 	            bat "mvn clean package"

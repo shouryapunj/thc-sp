@@ -31,6 +31,7 @@ dev\shouryapunj\constants\OrderStatus.class
 dev\shouryapunj\entity\Reservations.class
 dev\shouryapunj\dto\ReservationsDTO.class
 dev\shouryapunj\repository\LocationRepository.class
+dev\shouryapunj\exception\OrderCartServiceException.class
 dev\shouryapunj\service\MenuService.class
 dev\shouryapunj\controller\OrderCartController.class
 dev\shouryapunj\repository\OpenHoursReposiotry.class
