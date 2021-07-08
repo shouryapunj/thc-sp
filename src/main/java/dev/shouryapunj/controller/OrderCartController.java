@@ -77,7 +77,7 @@ public class OrderCartController {
     }
 
     @RequestMapping(value = "/get/{from}/{to}/{sortBy}", method = RequestMethod.GET)
-    public ResponseEntity getOrderById(@PathVariable("from") String from, @PathVariable("id") String to, @PathVariable("sortBy") String sortBy) {
+    public ResponseEntity getOrderById(@PathVariable("from") String from, @PathVariable("to") String to, @PathVariable("sortBy") String sortBy) {
         long start = System.currentTimeMillis();
         logger.info("Fetching Order");
         Optional<List<OrderCart>> order = orderCartService.getOrdersByPageAndSortBy(Integer.parseInt(from), Integer.parseInt(to), sortBy);

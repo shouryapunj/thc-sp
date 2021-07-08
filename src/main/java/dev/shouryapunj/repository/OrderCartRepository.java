@@ -1,5 +1,6 @@
 package dev.shouryapunj.repository;
 
+import dev.shouryapunj.constants.OrderStatus;
 import dev.shouryapunj.entity.OrderCart;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,6 @@ public interface OrderCartRepository extends PagingAndSortingRepository<OrderCar
                     "WHERE O.ORDER_ID = :orderId",
             nativeQuery = true
     )
-    void updateOrderById(@Param("orderId") String orderId, @Param("orderStatus") String orderStatus, @Param("modifiedOn") ZonedDateTime modifiedOn);
+    void updateOrderById(@Param("orderId") String orderId, @Param("orderStatus") OrderStatus orderStatus, @Param("modifiedOn") ZonedDateTime modifiedOn);
 
 }
