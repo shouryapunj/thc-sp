@@ -34,7 +34,6 @@ public class OrderCart {
     @Column(name = "Total", nullable = false)
     private double total;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "OrderStatus", nullable = false)
     private OrderStatus orderStatus;
 
