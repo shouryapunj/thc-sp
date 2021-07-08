@@ -1,11 +1,17 @@
 node {
 	
 	dir("C:\\Egen\\THC\\") {
-	
+	    
+	    stage("Packaging application") {
+	        try {
+	            bat "mvn clean package"
+	        } catch (e) {
+	            error "Packaging failed"
+	        }
+	    }
 	
 		stage("Run Container on Server") {
 			try {
-			    bat "mvn clean package"
 				bat "docker-compose down"
 				bat "docker-compose up --build -d"
 		
